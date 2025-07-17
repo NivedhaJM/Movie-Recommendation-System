@@ -69,7 +69,7 @@ Enter a movie name and click `Get Recommendations` — you’ll get a list of si
 
 ## 📸 SCREENSHOT
 
-[Movie Recommendation UI](./assets/ui-screenshot.png)
+[Movie Recommendation UI](https://github.com/NivedhaJM/Movie-Recommendation-System/blob/main/assests/OUTPUT.png)
 
 
 ## 📈 Future Improvements

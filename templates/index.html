@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Recommender</title>
+    <style>
+        body {
+            font-family :'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+            padding: 50px;
+        }
+        h1 {
+            color: #136fd1;
+        }
+        input {
+            padding: 10px;
+            width: 300px;
+            font-size: 16px;
+            margin: 10px 0;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #136fd1;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #000000;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Movie Recommendation System</h1>
+    <p>Enter your favorite movie to get recommendations:</p>
+    <input type="text" id="movieInput" placeholder="Enter movie name">
+    <br>
+    <button onclick="getRecommendations()">Get Recommendations</button>
+    <div id="result"></div>
+
+    <script>
+        function getRecommendations() {
+            let movieName = document.getElementById("movieInput").value;
+            if (!movieName) {
+                alert("Please enter a movie name!");
+                return;
+            }
+
+            fetch(`/recommend?movie=${encodeURIComponent(movieName)}`)
+                .then(response => response.json())
+                .then(data => {
+                    let resultDiv = document.getElementById("result");
+                    if (data.error) {
+                        resultDiv.innerHTML = `<p style="color:red;">${data.error}</p>`;
+                    } else {
+                        let recommendations = data.recommendations.map((movie, index) => `<p>${index + 1}. ${movie}</p>`).join('');
+                        resultDiv.innerHTML = `<h2>Recommended Movies:</h2>${recommendations}`;
+                    }
+                })
+                .catch(error => console.error("Error:", error));
+        }
+    </script>
+</body>
+</html>
